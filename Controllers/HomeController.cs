@@ -22,17 +22,43 @@ namespace SpendSmart.Controllers
         }
         public IActionResult Expenses()
         {
-            var expenses = _context.Expenses.ToList();//Get all the expenses from the database and store them in a list
-            return View(expenses);
+            //Get all the expenses from the database and store them in a list
+            var expenses = _context.Expenses.ToList();
+            var totalExpenses = expenses.Sum(x => x.Value);//Calculate the total expenses
+            ViewBag.TotalExpenses = totalExpenses;//Pass the total expenses to the view
+            return View(expenses);//Return the list of expenses  to the view
         }
-        public IActionResult CreateEditExpense()
+        public IActionResult CreateEditExpense(int? id)
         {
+            if (id != null)
+            {
+                //Get the expense from the database
+                var expenseInDb = _context.Expenses.SingleOrDefault(x => x.Id == id);
+                return View(expenseInDb);//Return the expense to the view
+            }
             return View();
+        }
+        public IActionResult DeleteExpense(int id)
+        {
+            var expenseInDb = _context.Expenses.SingleOrDefault(x => x.Id == id);//Get the expense from the database
+            _context.Expenses.Remove(expenseInDb);//Remove the expense from the database
+            _context.SaveChanges();//Save the changes to the database
+            return RedirectToAction("Expenses");//Redirect to the Expenses action
         }
         public IActionResult CreateEditExpenseForm(Expense model)
         {
-            _context.Expenses.Add(model);//Add the new expense to the database
+            if (model.Id == 0)
+            {
+                //creating
+                _context.Expenses.Add(model);//Add the new expense to the database
+            }
+            else
+            {
+                //editing
+                _context.Expenses.Update(model);//Update the expense in the database
 
+            }
+            
             _context.SaveChanges();//Save the changes to the database
 
             return RedirectToAction("Expenses");//Redirect to the Expenses action

@@ -9,15 +9,19 @@
     <a asp-controller="Home" asp-action="CreateEditExpense" class="btn btn-primary mt-2">Create New</a>
     <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary mt-2">Home</a>
     <br />
+    <hr />
+    <h3>Total Expenses $@ViewBag.TotalExpenses</h3>
+    <hr />
     <table class="table mt-2">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Value</th>
                 <th>Description</th>
                 <th>Category</th>
+                <th>Value$</th>
                 <th>Status</th>
                 <th>Date</th>
+                <th></th>
+                <th></th>
             </tr>   
         </thead>
         <tbody>
@@ -26,12 +30,13 @@
                 foreach (var expense in Model)
                 {
                     <tr>
-                        <td>@expense.Id</td>
-                        <td>@expense.Value</td>
                         <td>@expense.Description</td>
                         <td>@expense.Category</td>
+                        <td>@expense.Value</td>
                         <td>@expense.Status</td>
                         <td>@expense.Date</td>
+                        <td><a asp-action="CreateEditExpense" asp-route-id="@expense.Id">Edit</a></td>
+                        <td><a asp-action="DeleteExpense" asp-route-id="@expense.Id">Delete</a></td>
                     </tr>
                 }
             }
