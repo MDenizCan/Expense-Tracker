@@ -22,11 +22,13 @@ namespace SpendSmart.Controllers
         }
         public IActionResult Expenses()
         {
-            //Get all the expenses from the database and store them in a list
             var expenses = _context.Expenses.ToList();
-            var totalExpenses = expenses.Sum(x => x.Value);//Calculate the total expenses
-            ViewBag.TotalExpenses = totalExpenses;//Pass the total expenses to the view
-            return View(expenses);//Return the list of expenses  to the view
+            //Get all the expenses from the database and store them in a list
+            var totalExpenses = expenses
+                .Where(x => x.Status == ExpenseStatus.Approved)//Filter the expenses that are approved
+                .Sum(x => x.Value);//Calculate the total expenses
+            ViewBag.TotalExpenses = totalExpenses;//Pass the total expenses to the 
+            return View(expenses);//Return the list of expenses to the view
         }
         public IActionResult CreateEditExpense(int? id)
         {
