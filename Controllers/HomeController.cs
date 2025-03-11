@@ -27,9 +27,16 @@ namespace SpendSmart.Controllers
             var totalExpenses = expenses
                 .Where(x => x.Status == ExpenseStatus.Approved)//Filter the expenses that are approved
                 .Sum(x => x.Value);//Calculate the total expenses
+            var salary = expenses.Sum(x => x.Salary);
+            var totalLeft = salary - totalExpenses;
+            ViewBag.TotalSalary = salary;
             ViewBag.TotalExpenses = totalExpenses;//Pass the total expenses to the 
+            ViewBag.TotalLeft = totalLeft;
             return View(expenses);//Return the list of expenses to the view
+            
+            
         }
+
         public IActionResult CreateEditExpense(int? id)
         {
             if (id != null)

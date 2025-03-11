@@ -10,6 +10,8 @@
 
 <form asp-action="CreateEditExpenseForm" asp-controller="Home">
     <input hidden class="form-control" type="number" placeholder="0" asp-for="Id"/>
+    <label class="mt-4">Monthly Salary</label>
+    <input class="form-control" type="text" placeholder="Add your Monthly Salary" asp-for="Salary" />
     <label class="mt-4">Description</label>
     <input class="form-control" type="text" placeholder="Add a Description" asp-for="Description" />
     <label class="mt-4">Value $</label>
@@ -34,7 +36,9 @@
     </select>
     <label class="mt-4">Date</label>
     <input class="form-control" type="date" placeholder="date" asp-for="Date" />
-    <button class="btn btn-primary mt-4" type="submit">Add</button>
-    <a asp-controller="Home" asp-action="Expenses" class="btn btn-outline-primary mt-4">Overview</a>
-    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-primary mt-4">Home</a>
+    <button class="btn btn-success mt-4 btn-lg btn-block" type="submit">Add</button>
+    <div class="btn-group">
+    <a asp-controller="Home" asp-action="Expenses" class="btn btn-primary btn-lg mt-4 btn-block">Overview</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg mt-4 btn-block">Home</a>
+    </div>
 </form>

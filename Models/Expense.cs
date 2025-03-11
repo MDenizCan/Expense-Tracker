@@ -17,6 +17,8 @@ namespace SpendSmart.Models
         public ExpenseStatus Status { get; set; } = ExpenseStatus.Pending; //default value 
 
         public DateTime Date { get; set; } = DateTime.Now; //DateTime.Now is the current date and time and set as the current value 
+
+        public decimal? Salary { get; set; } //Nullable decimal type
     }
 
     public enum ExpenseStatus
